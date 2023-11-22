@@ -3,30 +3,30 @@ filename <- "WAG"
 
 fasttree <- function(filename){
   # read file and generate R matrix and F vector from texts
-  Q <- readMoments(filename, diag=F)
-  pi <- Q[nrow(Q), 1:(ncol(Q)-1)]
-  Q <- Q[1:(nrow(Q)-1), 1:(ncol(Q)-1)]
-  Q <- (Q + t(Q))
-  diag(Q) <- 0
+  R <- readMoments(filename, diag=F)
+  pi <- R[nrow(R), 1:(ncol(R)-1)]
+  R <- R[1:(nrow(R)-1), 1:(ncol(R)-1)]
+  R <- (R + t(R))
+  diag(R) <- 0
   
   # calculate the Q matrix
-  Q_matrix <- matrix(nrow = 20, ncol = 20)
+  Q <- matrix(nrow = 20, ncol = 20)
   for (i in c(1:20)){
     for (j in c(1:20)){
       if (i != j){
-        Q_matrix[i,j] <- pi[j]*Q[i,j]
+        Q[i,j] <- pi[j]*R[i,j]
       }
     }
   }
   
   # add diagonal values 
-  dia <- rowSums(Q_matrix, na.rm = TRUE)
-  diag(Q_matrix) <- -dia
+  dia <- rowSums(Q, na.rm = TRUE)
+  diag(Q) <- -dia
   
   # normalize the Q matrix
-  norm_Q <- Q_matrix/sum(pi*dia)
+  norm_Q <- Q/sum(pi*dia)
   
-  # transpose the Q matrix and add a row for F vertor
+  # transpose the Q matrix and add a row for F vector
   trans_Q <- t(norm_Q)
   Q_fasttree <- cbind(trans_Q, pi)
   
