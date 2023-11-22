@@ -28,16 +28,16 @@ fasttree <- function(filename){
   
   # transpose the Q matrix and add a row for F vertor
   trans_Q <- t(norm_Q)
-  fasttree_matrix <- cbind(trans_Q, pi)
+  Q_fasttree <- cbind(trans_Q, pi)
   
   # add column and row names
   row_names <- c("A", "R", "N", "D", "C", "Q", "E", "G", "H", "I", "L", "K", "M", "F", "P", "S", "T", "W", "Y", "V")
   col_names <- c("A", "R", "N", "D", "C", "Q", "E", "G", "H", "I", "L", "K", "M", "F", "P", "S", "T", "W", "Y", "V", "*")
-  rownames(fasttree_matrix) <- row_names
-  colnames(fasttree_matrix) <- col_names
+  rownames(Q_fasttree) <- row_names
+  colnames(Q_fasttree) <- col_names
   
   # write output file
-  write.table(fasttree_matrix, paste0("output_", filename), sep = "\t", quote = FALSE, row.names = TRUE, col.names = TRUE)
+  write.table(Q_fasttree, paste0("output_", filename), sep = "\t", quote = FALSE, row.names = TRUE, col.names = TRUE)
 } 
 
 fasttree(filename)
