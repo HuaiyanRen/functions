@@ -8,8 +8,6 @@ fasttree <- function(filename){
   Q <- Q[1:(nrow(Q)-1), 1:(ncol(Q)-1)]
   Q <- (Q + t(Q))
   diag(Q) <- 0
-  Q <- (Q/sum(Q))*100.0
-  
   
   # calculate the Q matrix
   Q_matrix <- matrix(nrow = 20, ncol = 20)
